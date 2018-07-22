@@ -20,8 +20,8 @@ namespace JsonTestMVC.Controllers
         [HttpPost]
         public ActionResult Index(Customer customer)
         {
-            //if (customer.Others == false || customer.SelfSend == false || customer.thirdParty == false)
-            //    ModelState.AddModelError("Error", "Must select one option");
+            if (customer.Others == false || customer.SelfSend == false || customer.thirdParty == false)
+                ModelState.AddModelError("Error", "Must select one option");
 
             return View();
         }
