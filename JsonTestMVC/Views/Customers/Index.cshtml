@@ -6,9 +6,8 @@
 }
 
 <style type="text/css">
-    #Options-error
-    {
-        display:none;
+    #Options-error {
+        display: none;
     }
 </style>
 
@@ -65,7 +64,7 @@
                         </span>
 
                     </div>
-                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />
@@ -80,7 +79,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script type="text/javascript">
+    <script type="text/javascript">
     var declarationsError = $('#Options-error');
         $('form').submit(function () {
 
@@ -98,5 +97,6 @@
                 declarationsError.hide(); // hide error message
             }
         });
-</script>
+    </script>
 }
+
