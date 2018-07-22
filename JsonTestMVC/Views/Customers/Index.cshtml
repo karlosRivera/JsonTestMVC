@@ -67,7 +67,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
+                        <input id="btnSubmit" type="submit" value="Save" class="btn btn-default" />
                     </div>
                 </div>
 
@@ -80,22 +80,73 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
-    var declarationsError = $('#Options-error');
-        $('form').submit(function () {
+        var isAnyCheckBoxSelected = false;
 
+        var declarationsError = $('#Options-error');
+
+        function isCheckedAny()
+        {
             if ($(".chkbox:checkbox:checked").length > 0) {
+                isAnyCheckBoxSelected = true;
                 declarationsError.hide();
                 return true;
             } else {
+                isAnyCheckBoxSelected = false;
                 declarationsError.show();
                 return false;
             }
+        }
+
+        $('form').submit(function () {
+            isCheckedAny();
         });
 
         $('.chkbox').change(function () {
-            if ($(this).is(':checked')) {
-                declarationsError.hide(); // hide error message
-            }
+            //if ($(this).is(':checked')) {
+            //    isAnyCheckBoxSelected = true;
+            //    declarationsError.hide(); // hide error message
+            //}
+            isCheckedAny();
+        });
+
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                if (isCheckedAny()) {
+                    var $form = $('form');
+                    if ($form.valid() && isAnyCheckBoxSelected) {
+                        var token = $('input[name="__RequestVerificationToken"]').val();
+
+                        //alert("button clicked" + token);
+                        var data = {
+                            __RequestVerificationToken: token,
+                            customer: {
+                                FirstName: $('#FirstName').val(),
+                                LastName: $('#LastName').val(),
+                                SelfSend: $('#SelfSend').is(":checked"),
+                                thirdParty: $('#thirdParty').is(":checked"),
+                                Others: $('#Others').is(":checked")
+                            }
+                        };
+
+
+                        $.ajax({
+                            url: '@Url.Action("Index", "Customers")',
+                            data: data,
+                            type: 'POST',
+                            dataType: "json",
+                            //contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                alert(data.message);
+                            },
+                            error: function (request, status, error) {
+                                alert(request.responseText);
+                            }
+                        });
+                    }
+
+                }
+                return false;
+            });
         });
     </script>
 }

@@ -16,6 +16,16 @@ namespace JsonTestMVC.Controllers
             return View();
         }
 
+        //[ValidateAntiForgeryToken()]
+        //[HttpPost]
+        //public ActionResult Index(Customer customer)
+        //{
+        //    if (customer.Others == false || customer.SelfSend == false || customer.thirdParty == false)
+        //        ModelState.AddModelError("Error", "Must select one option");
+
+        //    return View();
+        //}
+
         [ValidateAntiForgeryToken()]
         [HttpPost]
         public ActionResult Index(Customer customer)
@@ -23,9 +33,8 @@ namespace JsonTestMVC.Controllers
             if (customer.Others == false || customer.SelfSend == false || customer.thirdParty == false)
                 ModelState.AddModelError("Error", "Must select one option");
 
-            return View();
+            return Json(new { message = "Operation done..." }, JsonRequestBehavior.DenyGet);
         }
-
 
     }
 }
