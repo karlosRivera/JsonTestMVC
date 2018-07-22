@@ -1,0 +1,105 @@
+﻿@using JsonTestMVC.Models
+@model Customer
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    #Options-error
+    {
+        display:none;
+    }
+</style>
+
+<h2>Index</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="testform">
+            @using (Html.BeginForm("Index", "Customers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Enter customer info.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.SelfSend, new { @class = "chkbox" })
+                            @Html.LabelFor(m => m.SelfSend)
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.thirdParty, new { @class = "chkbox" })
+                            @Html.LabelFor(m => m.thirdParty)
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.Others, new { @class = "chkbox" })
+                            @Html.LabelFor(m => m.Others)
+                        </div>
+                    </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        @Html.ValidationMessage("Error", "", new { @class = "text-danger" })
+
+                        <span id="Options-error" class="field-validation-error">
+                            <span>Must select one options</span>
+                        </span>
+
+                    </div>
+                    </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    var declarationsError = $('#Options-error');
+    alert('before form submit');
+        $('form').submit(function () {
+
+            if ($(".chkbox:checkbox:checked").length > 0) {
+                declarationsError.hide();
+                alert('at least one checkbox checked');
+                return true;
+            } else {
+                declarationsError.show();
+                alert('no checkbox checked');
+                return false;
+            }
+        });
+
+        $('.chkbox').change(function () {
+            if ($(this).is(':checked')) {
+                declarationsError.hide(); // hide error message
+            }
+        });
+</script>
+}
