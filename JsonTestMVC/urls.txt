@@ -1,1 +1,5 @@
-﻿https://forums.asp.net/t/2089915.aspx?ASP+Net+MVC+custom+client+side+validation+for+checkboxes+is+not+working
+https://forums.asp.net/t/2089915.aspx?ASP+Net+MVC+custom+client+side+validation+for+checkboxes+is+not+working
+https://stackoverflow.com/questions/37778489/how-to-make-check-box-list-in-asp-net-mvc
+https://www.codeproject.com/Tips/1070653/CheckBoxList-in-ASP-NET-MVC
+https://www.codeproject.com/Tips/786243/ASP-NET-MVC-CheckBoxList-Basic-Implementation
+https://stackoverflow.com/questions/6923430/mvc-unobtrusive-validation-on-checkbox-not-working/6931490
