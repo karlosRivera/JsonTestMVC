@@ -1,0 +1,1 @@
+﻿https://forums.asp.net/t/2089915.aspx?ASP+Net+MVC+custom+client+side+validation+for+checkboxes+is+not+working
