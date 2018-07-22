@@ -1,4 +1,4 @@
-﻿@using JsonTestMVC.Models
+@using JsonTestMVC.Models
 @model Customer
 
 @{
@@ -6,9 +6,8 @@
 }
 
 <style type="text/css">
-    #Options-error
-    {
-        display:none;
+    #Options-error {
+        display: none;
     }
 </style>
 
@@ -60,12 +59,12 @@
                     <div class="col-md-offset-2 col-md-10">
                         @Html.ValidationMessage("Error", "", new { @class = "text-danger" })
 
-                        <span id="Options-error" class="field-validation-error">
+                        <span id="Options-error" class="field-validation-error text-danger">
                             <span>Must select one options</span>
                         </span>
 
                     </div>
-                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />
@@ -80,18 +79,15 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script type="text/javascript">
+    <script type="text/javascript">
     var declarationsError = $('#Options-error');
-    alert('before form submit');
         $('form').submit(function () {
 
             if ($(".chkbox:checkbox:checked").length > 0) {
                 declarationsError.hide();
-                alert('at least one checkbox checked');
                 return true;
             } else {
                 declarationsError.show();
-                alert('no checkbox checked');
                 return false;
             }
         });
@@ -101,5 +97,6 @@
                 declarationsError.hide(); // hide error message
             }
         });
-</script>
+    </script>
 }
+
