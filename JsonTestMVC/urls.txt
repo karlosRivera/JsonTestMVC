@@ -1,5 +1,23 @@
+<<<<<<< HEAD
 ﻿https://forums.asp.net/t/2089915.aspx?ASP+Net+MVC+custom+client+side+validation+for+checkboxes+is+not+working
 https://stackoverflow.com/questions/37778489/how-to-make-check-box-list-in-asp-net-mvc
 https://www.codeproject.com/Tips/1070653/CheckBoxList-in-ASP-NET-MVC
 https://www.codeproject.com/Tips/786243/ASP-NET-MVC-CheckBoxList-Basic-Implementation
 https://stackoverflow.com/questions/6923430/mvc-unobtrusive-validation-on-checkbox-not-working/6931490
+=======
+https://forums.asp.net/t/2089915.aspx?ASP+Net+MVC+custom+client+side+validation+for+checkboxes+is+not+working
+https://stackoverflow.com/questions/37778489/how-to-make-check-box-list-in-asp-net-mvc
+https://www.codeproject.com/Tips/1070653/CheckBoxList-in-ASP-NET-MVC
+https://www.codeproject.com/Tips/786243/ASP-NET-MVC-CheckBoxList-Basic-Implementation
+https://stackoverflow.com/questions/6923430/mvc-unobtrusive-validation-on-checkbox-not-working/6931490
+
+https://forums.asp.net/p/2144209/6219423.aspx?how+to+save+partial+view+output+to+pdf
+https://stackoverflow.com/questions/51459627/asp-net-mvc-user-must-select-one-check-box-validate-at-client-side?noredirect=1#comment89890398_51459627
+http://www.dotnetawesome.com/2014/08/how-to-implement-custom-user-defined-at-least-one-required-mvc4.html
+https://www.aspsnippets.com/Articles/Bind-Populate-CheckBoxList-from-database-using-Model-in-ASPNet-MVC-Razor.aspx
+https://www.aspsnippets.com/Articles/Save-Insert-multiple-CheckBoxes-CheckBoxList-values-to-database-in-ASPNet-MVC.aspx
+https://www.c-sharpcorner.com/blogs/post-the-data-to-asp-net-mvc-controller-using-jquery-ajax
+https://stackoverflow.com/questions/5980389/proper-way-to-use-ajax-post-in-jquery-to-pass-model-from-strongly-typed-mvc3-vie
+https://www.tutorialrepublic.com/faq/how-to-check-a-checkbox-is-checked-or-not-using-jquery.php
+
+>>>>>>> 2f101dc4b98df567895b562b368672f7764e2a99
