@@ -80,49 +80,48 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
-<<<<<<< HEAD
-        var isAnyCheckBoxSelected = false;
 
-        var declarationsError = $('#Options-error');
-=======
+    var isAnyCheckBoxSelected = false;
     var declarationsError = $('#Options-error');
-        $('form').submit(function () {
->>>>>>> 2f101dc4b98df567895b562b368672f7764e2a99
 
-        function isCheckedAny()
-        {
-            if ($(".chkbox:checkbox:checked").length > 0) {
-                isAnyCheckBoxSelected = true;
-                declarationsError.hide();
-                return true;
-            } else {
-                isAnyCheckBoxSelected = false;
-                declarationsError.show();
-                return false;
-            }
+    var declarationsError = $('#Options-error');
+    $('form').submit(function () {
+        isCheckedAny();
+    });
+
+
+    function isCheckedAny()
+    {
+        if ($(".chkbox:checkbox:checked").length > 0) {
+            isAnyCheckBoxSelected = true;
+            declarationsError.hide();
+            return true;
+        } else {
+            isAnyCheckBoxSelected = false;
+            declarationsError.show();
+            return false;
         }
+    }
 
-        $('form').submit(function () {
-            isCheckedAny();
-        });
 
-        $('.chkbox').change(function () {
-            //if ($(this).is(':checked')) {
-            //    isAnyCheckBoxSelected = true;
-            //    declarationsError.hide(); // hide error message
-            //}
-            isCheckedAny();
-        });
-<<<<<<< HEAD
+    $('.chkbox').change(function () {
+        isCheckedAny();
+    });
+
 
         $(document).ready(function () {
             $("#btnSubmit").click(function () {
-                if (isCheckedAny()) {
-                    var $form = $('form');
-                    if ($form.valid() && isAnyCheckBoxSelected) {
+                //e.preventDefault();
+                //var $form = $('form');
+
+                isAnyCheckBoxSelected = null;
+               
+                if ($('form').valid() && isCheckedAny() == true) {
+                    
+                    //if ($('form').valid() && isAnyCheckBoxSelected) {
                         var token = $('input[name="__RequestVerificationToken"]').val();
 
-                        //alert("button clicked" + token);
+                        alert("form submit" + isCheckedAny());
                         var data = {
                             __RequestVerificationToken: token,
                             customer: {
@@ -142,20 +141,22 @@
                             dataType: "json",
                             //contentType: 'application/json; charset=utf-8',
                             success: function (data) {
+                                
                                 alert(data.message);
                             },
                             error: function (request, status, error) {
                                 alert(request.responseText);
                             }
                         });
-                    }
+                    //}
 
                 }
                 return false;
+
+                
             });
         });
-=======
->>>>>>> 2f101dc4b98df567895b562b368672f7764e2a99
+
     </script>
 }
 
