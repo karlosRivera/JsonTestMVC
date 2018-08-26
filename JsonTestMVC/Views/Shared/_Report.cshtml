@@ -1,0 +1,30 @@
+﻿@model  List<JsonTestMVC.Models.Student>
+
+<html>
+<head>
+    <link href="/Content/Student.css" rel="stylesheet" />
+</head>
+
+<body>
+    <table class="table" id="student">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>First Name </th>
+                <th>Last Name </th>
+                <th>Favourite Game</th>
+            </tr>
+        </thead>
+
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.ID</td>
+                <td>@d.FirstName</td>
+                <td>@d.LastName</td>
+                <td>@d.FavouriteGames</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
