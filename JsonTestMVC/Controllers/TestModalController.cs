@@ -26,6 +26,9 @@ namespace JsonTestMVC.Controllers
             return PartialView("_TestPartial");
         }
 
+        //Install-Package itextsharp.xmlworker -Version 5.5.13 
+        //http://jsfiddle.net/a49cA/1/
+
         public ActionResult GeneratePDF()
         {
             bool IsPdfGenerated = false;
