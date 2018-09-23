@@ -6,6 +6,8 @@
 <br /><br /><br />
 <div class="row">
     @Html.ActionLink("Show Dialog", "ShowBootStrapModal", new { testid1 = 1, testid2 = 101 }, new { id = "lnkPrintBol" })
+
+    <button type="button" id="btndownload">Download as PDF</button>
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -24,6 +26,9 @@
                 <button type="button" class="btn btn-primary bol_print_modal_save">Save changes</button>
 
                 <button type="button" class="btn btn-primary bol_save_as_pdf">Save as PDF</button>
+
+                <button type="button" class="btn btn-primary bol_download_as_pdf">Download as PDF</button>
+                <button type="button" class="btn btn-primary bol_Print_as_pdf">Print as PDF</button>
             </div>
         </div>
     </div>
@@ -32,58 +37,80 @@
 
 @section scripts {
     <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $("#lnkPrintBol").click(function () {
-                var linkurl = $(this).attr("href");
-                alert(linkurl);
-                //$('.modal-body').html('<b>Hello testing data</b>');
-                //$('#myModal').modal('show');
+        $("#lnkPrintBol").click(function () {
+            var linkurl = $(this).attr("href");
+            alert(linkurl);
+            //$('.modal-body').html('<b>Hello testing data</b>');
+            //$('#myModal').modal('show');
 
 
-                $(".modal-body").load(linkurl, function (responseTxt, statusTxt, xhr) {
-                    if (statusTxt == "success") {
-                        alert("External content loaded successfully!");
-                        $('#myModal').modal({ backdrop: 'static', keyboard: false }, 'show');
-                    }
-                    if (statusTxt == "error") {
-                        alert("Error: " + xhr.status + ": " + xhr.statusText);
-                    }
-                });
-                return false;
+            $(".modal-body").load(linkurl, function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success") {
+                    alert("External content loaded successfully!");
+                    //$('#myModal').modal({ backdrop: 'static', keyboard: false }, 'show');
+                    $('#myModal').modal('show');
+                }
+                if (statusTxt == "error") {
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+                }
             });
-
-            $(".bol_print_modal_save").click(function () {
-                alert('Save clicked');
-                $('#myModal').modal('hide');
-                return false;
-            });
-
-            $('#myModal').on('hidden.bs.modal', function () {
-                //write code here when user click on close button
-                alert('removing modal')
-                $(this).removeData('bs.modal');
-                $('#modal-container .modal-content').empty();
-            });
-
-            $(".bol_save_as_pdf").click(function () {
-                alert('Save as pdf clicked');
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("GeneratePDF", "TestModal")',
-                    success: function (data) {
-                        @*alert('PDF generate successfully');
-                        window.location = '@Url.Action("DownloadAttachment", "PostDetail", new { studentId = 123 })';*@
-                        alert(data.Msg);
-                    },
-                    error: function (xhr, status, error) {
-                        //$("#dataDiv").html("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                    }
-                });
-                return false;
-            });
-
+            return false;
         });
+
+        $(".bol_print_modal_save").click(function () {
+            alert('Save clicked');
+            $('#myModal').modal('hide');
+            return false;
+        });
+
+        $('#myModal').on('hidden.bs.modal', function () {
+            //write code here when user click on close button
+            alert('removing modal')
+            $(this).removeData('bs.modal');
+            $('#modal-container .modal-content').empty();
+        });
+
+        $(".bol_save_as_pdf").click(function () {
+            alert('Save as pdf clicked');
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GeneratePDF", "TestModal")',
+                success: function (data) {
+                    @*alert('PDF generate successfully');
+                        window.location = '@Url.Action("DownloadAttachment", "PostDetail", new { studentId = 123 })';*@
+                    alert(data.Msg);
+                },
+                error: function (xhr, status, error) {
+                    //$("#dataDiv").html("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+            return false;
+        });
+
+        $(".bol_download_as_pdf").click(function () {
+            alert('Save as pdf clicked');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DownloadPDF", "TestModal")',
+                success: function (data) {
+                    @*alert('PDF generate successfully');
+                        window.location = '@Url.Action("DownloadAttachment", "PostDetail", new { studentId = 123 })';*@
+                    //alert(data.Msg);
+                },
+                error: function (xhr, status, error) {
+                    //$("#dataDiv").html("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+            return false;
+        });
+
+        $("#btndownload").click(function () {
+            window.location = '@Url.Action("DownloadPDF", "TestModal")';
+            return false;
+        });
+    });
     </script>
 }
 
