@@ -26,5 +26,13 @@
             </tr>
         }
     </table>
+    <br /><br />
+    Serial No <input type="text" value="@ViewBag.SerialNo" />
+    Hobbies Football <input type="checkbox" value="Football" checked="@(ViewBag.hobby=="Football" ? true : false)" />
+    Hocky <input type="checkbox" value="Hocky" checked="@(ViewBag.hobby == "Hocky" ? true : false)" />
+    Carrom <input type="checkbox" value="Carrom" checked="@(ViewBag.hobby == "Carrom" ? true : false)" />
+
+    Sex Male <input type="radio" value="M" checked="@(ViewBag.sex == "M" ? true : false)" />
+    Female <input type="radio" value="F" checked="@(ViewBag.sex == "F" ? true : false)" />
 </body>
 </html>

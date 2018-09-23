@@ -52,7 +52,6 @@ c:\users\tridip\documents\visual studio 2013\Projects\JsonTestMVC\JsonTestMVC\bi
 c:\users\tridip\documents\visual studio 2013\Projects\JsonTestMVC\JsonTestMVC\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 c:\users\tridip\documents\visual studio 2013\Projects\JsonTestMVC\JsonTestMVC\obj\Debug\JsonTestMVC.dll
 c:\users\tridip\documents\visual studio 2013\Projects\JsonTestMVC\JsonTestMVC\obj\Debug\JsonTestMVC.pdb
-C:\Users\TRIDIP\documents\visual studio 2013\Projects\JsonTestMVC\JsonTestMVC\obj\Debug\JsonTestMVC.csprojResolveAssemblyReference.cache
 C:\Users\TRIDIP\documents\visual studio 2013\Projects\JsonTestMVC\JsonTestMVC\bin\itextsharp.dll
 C:\Users\TRIDIP\documents\visual studio 2013\Projects\JsonTestMVC\JsonTestMVC\bin\itextsharp.xmlworker.dll
 C:\Users\TRIDIP\documents\visual studio 2013\Projects\JsonTestMVC\JsonTestMVC\bin\itextsharp.xml

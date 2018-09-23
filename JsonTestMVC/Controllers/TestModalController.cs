@@ -69,6 +69,9 @@ namespace JsonTestMVC.Controllers
         public void DownloadPDF()
         {
             //bool IsPdfGenerated = false;
+            ViewBag.SerialNo = "AC001";
+            ViewBag.hobby = "Football";
+            ViewBag.sex = "M";
 
             List<Student> studentsVM = new List<Student>
             {
@@ -86,7 +89,7 @@ namespace JsonTestMVC.Controllers
             StringReader sr = new StringReader(viewToString);
             Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 30f, 0f);
             PdfWriter writer = PdfWriter.GetInstance(pdfDoc, System.Web.HttpContext.Current.Response.OutputStream);
-            //writer.CloseStream = false;
+            writer.CloseStream = false;
             pdfDoc.Open();
             XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
             pdfDoc.Close();
@@ -98,5 +101,32 @@ namespace JsonTestMVC.Controllers
             System.Web.HttpContext.Current.Response.Write(pdfDoc);
             System.Web.HttpContext.Current.Response.End();
         }
+
+        //public FileStreamResult GetPdf()
+        //{
+        //    var memoryStream = new MemoryStream();
+        //    Document document = new Document();
+        //    PdfWriter.GetInstance(document, memoryStream);
+        //    document.Open();
+        //    document.Add(new Chunk("Hello World"));
+
+        //    writer.CloseStream = false;
+        //    document.Close();
+        //    memoryStream.Position = 0;
+
+        //    System.Net.Mime.ContentDisposition contentDisposition = new System.Net.Mime.ContentDisposition
+        //    {
+        //        FileName = fileName,
+        //        Inline = true
+        //    };
+        //    Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+        //    return File(pdfFile, "application/pdf");
+
+        //    return FileStreamResult(memoryStream, "application/pdf", "Myfile.pdf");
+
+        // https://simpledotnetsolutions.wordpress.com/2012/11/01/itextsharp-creating-form-fields/
+        //}
+
+
     }
 }
