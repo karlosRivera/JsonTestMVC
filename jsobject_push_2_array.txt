@@ -1,0 +1,163 @@
+var Students = [];
+
+var StudentArray = [];
+            for (i = 0; i < Students.length; i++) {
+                var Student = Students[i];
+                StudentArray.push(PopulateStudent($.trim(Student.ID), $.trim(Student.FirstName), $.trim(Student.LastName)
+                    , $.trim(Student.StateID), $.trim(Student.StateName), $.trim(Student.CityID), $.trim(Student.CityName), $.trim(Student.IsActive)));
+}
+
+
+
+function handleLocalStore(tableRow, action) {
+
+    var ID = tableRow.find("input[id*='HiddenID']").val();
+    var FirstName = tableRow.find("input[type='text'][id*='FirstName']").val();
+    var LastName = tableRow.find("input[type='text'][id*='LastName']").val();
+    var StateID = tableRow.find("select[id*='cboState'] :selected").val();
+    var StateName = tableRow.find("select[id*='cboState'] :selected").text();
+    var CityID = tableRow.find("select[id*='cboCity'] :selected").val();
+    var CityName = tableRow.find("select[id*='cboCity'] :selected").text();
+    var IsActive = (tableRow.find("[class*='box']").is(':checked') ? 1 : 0);
+
+    if (typeof (FirstName) != 'undefined') {
+
+        var index = IndexOfArrayByKeyValue(Students, "ID", ID);
+        if (action.toUpperCase() == 'UPDATE') {
+            if (index == null) {
+                Students.push(PopulateStudent($.trim(ID), $.trim(FirstName), $.trim(LastName),
+                    $.trim(StateID), $.trim(StateName), $.trim(CityID), $.trim(CityName), $.trim(IsActive)));
+            }
+            else {
+                Students[index].ID = $.trim(ID);
+                Students[index].FirstName = $.trim(FirstName);
+                Students[index].LastName = $.trim(LastName);
+                Students[index].StateID = $.trim(StateID);
+                Students[index].StateName = $.trim(StateName);
+                Students[index].CityID = $.trim(CityID);
+                Students[index].CityName = $.trim(CityName);
+                Students[index].IsActive = $.trim(IsActive);
+            }
+        }
+        else if (action.toUpperCase() == 'DELETE') {
+            if (index != null) {
+                Students.splice(index, 1);
+            }
+        }
+
+        if (typeof (Storage) !== "undefined") {
+            localStorage.setObject('Students', Students);
+        }
+        else {
+            alert('local store does not support');
+        }
+        Show();
+    }
+}
+
+
+
+$(document).on('click', '.save-user', function () {
+        var $form = $('form');
+        if ($form.valid()) {
+            var tr = $(this).parents('tr:first');
+            HideToolTips($(tr).index());
+
+            var Sortdir = $("#dir").val();
+            var Sortcol = $("#col").val();
+            var page = $("#page").val();
+
+            var ID = $.trim(tr.find("input[id*='HiddenID']").val());
+            var FirstName = $.trim(tr.find("input[type='text'][id*='FirstName']").val());
+            var LastName = $.trim(tr.find("input[type='text'][id*='LastName']").val());
+            var StateID = tr.find("select[id*='cboState'] :selected").val();
+            var StateName = tr.find("select[id*='cboState'] :selected").text();
+            var CityID = tr.find("select[id*='cboCity'] :selected").val();
+            var CityName = tr.find("select[id*='cboCity'] :selected").text();
+            var IsActive = tr.find("[class*='box']").is(':checked');
+
+            var data = new Object();
+            var StudentArray = [];
+            StudentArray.push(PopulateStudent(ID, FirstName, LastName, StateID, StateName, CityID, CityName, IsActive));
+
+            data.page = page;
+            data.sort = Sortcol;
+            data.sortdir = Sortdir;
+            data.Students = StudentArray;
+
+            $.ajax({
+                url: updateUrl,
+                data: JSON.stringify({ oSVm: data, 'Action': 'UPDATE' }),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $('#gridContent').html(data);
+                    $("#page").val(page);
+                    $("#col").val(Sortcol);
+                    $("#dir").val(Sortdir);
+                    handleLocalStore(tr, 'DELETE');
+                    initScripts();
+
+                    tr.find('.edit-mode, .display-mode').toggle();
+                    if ($(tr).find("td:nth-child(3)").hasClass('PadOff')) {
+                        $(tr).find("td:nth-child(2)").removeClass("PadOff");
+                        $(tr).find("td:nth-child(3)").removeClass("PadOff");
+                        $(tr).find("td:nth-child(4)").removeClass("PadOff");
+                        $(tr).find("td:nth-child(5)").removeClass("PadOff");
+                        $(tr).find("td:nth-child(6)").removeClass("PadOff");
+                    }
+
+                    $(tr).find("td:nth-child(2)").addClass("PadOn");
+                    $(tr).find("td:nth-child(3)").addClass("PadOn");
+                    $(tr).find("td:nth-child(4)").addClass("PadOn");
+                    $(tr).find("td:nth-child(5)").addClass("PadOn");
+                    $(tr).find("td:nth-child(6)").addClass("PadOn");
+                    _newRow = 0;
+                    setEditableRow();
+
+                }
+            });
+        }
+        return false;
+});
+
+
+function PopulateStudent(id, firstname, lastname, stateid, statename, cityid, cityname, isactive) {
+    var Student = new Object();
+    Student.ID = $.trim(id);
+    Student.FirstName = $.trim(firstname);
+    Student.LastName = $.trim(lastname);
+    Student.IsActive = isactive;
+    Student.StateID = stateid;
+    Student.StateName = statename;
+    Student.CityID = cityid;
+    Student.CityName = cityname;
+    return Student;
+}
+
+
+[HttpPost]
+        public ActionResult UpdateStudents(StudentListViewModel oSVm, string Action)
+        {
+            if (Request.IsAjaxRequest())
+                System.Threading.Thread.Sleep(1000); // just simulate delay of one second
+
+            StudentListViewModel SVm = new StudentListViewModel();
+            SVm.SetUpParams(oSVm);
+            if (Action == "UPDATE")
+            {
+                SVm.Students = _Studentdata.SaveXML(new List<Student>(oSVm.Students).ToXml("Students"),
+                    oSVm.page, oSVm.PageSize, oSVm.sort, oSVm.sortdir).ToList();
+            }
+            else if (Action == "DELETE")
+            {
+                SVm.Students = _Studentdata.Delete(oSVm.Students[0].ID,
+                    oSVm.page, oSVm.PageSize, oSVm.sort, oSVm.sortdir).ToList();
+
+            }
+
+            SVm.States = _Statedata.GetAll().ToList();
+            SVm.Cities = _Citydata.GetAll().ToList();
+            SVm.RowCount = _Studentdata.DataCounter;
+            return PartialView("_StudentGrid", SVm);
+}
